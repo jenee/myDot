@@ -1,4 +1,4 @@
-
+import math
 import calendar
 import datetime
 
@@ -7,17 +7,10 @@ import datetime
 currentMonth = datetime.datetime.now().month
 currentYear = datetime.datetime.now().year
 
-#http://stackoverflow.com/questions/42950/get-last-day-of-the-month-in-python
-
-monthRangeVals = calendar.monthrange(currentYear, currentMonth)
-
-dayOfWeek = monthRangeVals[0]
-lastDayOfMonth = monthRangeVals[1]
 
 #myCal = calendar.HTMLCalendar(calendar.SUNDAY)
 #print myCal.formatmonth(currentYear, currentMonth)
 
-week = range(7)
 
 print "<center>"
 print "<table border=\"1\" cellpadding=\"10\">"
@@ -37,7 +30,52 @@ print "\t\t</tr>"
 print "\t</thead>"
 
 
+#http://stackoverflow.com/questions/42950/get-last-day-of-the-month-in-python
+monthRangeVals = calendar.monthrange(currentYear, currentMonth)
+
+dayOfWeekMonthStart = monthRangeVals[0]
+lastDayOfMonth = monthRangeVals[1]
+
+allDays = range(1,lastDayOfMonth+1)
+prevMonthCell = True
+numRows = math.ceil( ( lastDayOfMonth + dayOfWeekMonthStart ) / 7.0 )
+
+prevMonth = currentMonth - 1
+if currentMonth == 1:
+   prevMonth = 12
+prevMonthName = calendar.month_abbr[prevMonth]
+
+nextMonth = currentMonth + 1
+if currentMonth == 12:
+   nextMonth = 1
+nextMonthName = calendar.month_abbr[nextMonth]
 
 
+curDay = 1
+print "\t<tbody>"
+
+for weekRow in range(int(numRows)):
+   print "\t\t<tr>"
+   for dayNum in range(7):
+      print "\t\t\t<td>"
+      if prevMonthCell:
+         if dayNum <= dayOfWeekMonthStart:
+            print"<div style=\"color:gray\">"+ prevMonthName+"</div>"
+         else:
+            prevMonthCell = False;
+            print curDay
+            curDay +=1
+      elif curDay <= lastDayOfMonth:
+         print curDay
+         curDay += 1
+      else:
+         print"<div style=\"color:gray\">"+ nextMonthName+"</div>"
+
+      print "\t\t\t</td>"
+   print "\t\t</tr>"
+
+
+
+print "\t</tbody>"
 
 print "</table>"
