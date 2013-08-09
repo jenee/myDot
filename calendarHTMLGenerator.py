@@ -19,7 +19,8 @@ lastDayOfMonth = monthRangeVals[1]
 
 week = range(7)
 
-print "<table border=\"1\">"
+print "<center>"
+print "<table border=\"1\" cellpadding=\"10\">"
 print "\t<thead>"
 print "\t\t<tr>"
 print "\t\t\t<th colspan=\"7\">"+calendar.month_name[currentMonth]+" "+str(currentYear)+"</th"
